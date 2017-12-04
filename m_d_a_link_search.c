@@ -920,10 +920,9 @@ int main() {
 	mda=(char *)calloc(5,sizeof(char));
         str=(char *)calloc(100,sizeof(char));
 
-        scanf("%s %s",mda,str);
+        scanf("%s %[^\n]",mda,str);
 
         str_len = strlen(str);
-
 
 	if (strlen(mda) == 2 && *mda == '-') {
 	for (int i = 1;i < 2;i++) {
@@ -961,826 +960,834 @@ else
 	printf("옵션 오류");
 	return 0;
 }
+
+                for (int i = 0;i <  str_len;i++)
+                        if (*(str + i) == '?')
+                                q_n++;
+
 while(m>0){
-	printf("director 목록\n");
-	if (*(str + str_len - 1) == '*') {
-		temp_m = head_m;
-		while (1) {
-			accord = 0;
-			accord_num = 0;
+	printf("movie 목록\n");
+	 if (*(str + str_len - 1) == '*') {
+                                temp_m = head_m;
+                                while (1) {
+                                        accord=0;
+                                        accord_num=0;
 
-			for (int i = 0;i < str_len - 1;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_m->title->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - 1 - q_n)
-				accord_num++;
+                                        for(int i=0;i<str_len-1;i++){
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_m->title->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
 
-			accord = 0;
-			for (int i = 0;i < str_len - 1;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_m->genre->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - 1 - q_n)
-				accord_num++;
-			accord = 0;
+                                        accord = 0;
+                                        for (int i = 0;i < str_len - 1;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_m->genre->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
 
-			for (int i = 0;i < str_len - 1;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_m->director->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - 1 - q_n)
-				accord_num++;
-			accord = 0;
+                                        accord = 0;
 
-			tmp_ma = temp_m->actor;
-			while (1) {
-				for (int i = 0;i < str_len - 1;i++) {
-					if (*(str + i) == '?')
-						;
-					else if (*(str + i) == *((tmp_ma->str) + i))
-						accord++;
-					else
-						;
-				}
-				if (accord == str_len - 1 - q_n)
-					accord_num++;
-				accord = 0;
+                                        for (int i = 0;i < str_len - 1;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_m->director->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
+                                        accord = 0;
 
-				if (tmp_ma->next == NULL)
-					break;
-				tmp_ma = tmp_ma->next;
-			}
-			accord = 0;
+                                        tmp_ma = temp_m->actor;
+                                        while (1) {
+                                                for (int i = 0;i < str_len - 1;i++) {
+                                                        if (*(str + i) == '?')
+                                                                ;
+                                                        else if (*(str + i) == *((tmp_ma->str) + i))
+                                                                accord++;
+                                                        else
+                                                                ;
+                                                }
+                                                if (accord == str_len - 1 - q_n)
+                                                        accord_num++;
+                                                accord = 0;
 
-
-			if (accord_num > 0) {
-				printf("%d:", temp_m->serial_num);
-				printf("%s:", temp_m->title->str);
-				printf("%s:", temp_m->genre->str);
-				printf("%s:", temp_m->director->str);
-				printf("%d:", temp_m->year);
-				printf("%d", temp_m->time);
-
-				tmp_ma = temp_m->actor;
-
-				while (1) {
-					printf("%s", tmp_ma->str);
-					if (tmp_ma->next == NULL)
-						break;
-					tmp_ma = tmp_ma->next;
-					printf(", ");
-				}
-				printf("\n");
-			}
-			if (temp_m->next == NULL)
-				break;
-			temp_m = temp_m->next;
-		}
-	}
-	else if (*str == '*') {
-		temp_m = head_m;
-		reverseString(str);
-
-		while (1) {
-			reverse = (char *)calloc(100, sizeof(char));
-			strcpy(reverse, temp_m->title->str);
-			reverseString(reverse);
-			accord = 0;
-			accord_num = 0;
-
-			for (int i = 0;i < str_len - 1;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *(reverse + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - 1 - q_n)
-				accord_num++;
-
-			accord = 0;
-			free(reverse);
-
-			reverse = (char *)calloc(100, sizeof(char));
-			strcpy(reverse, temp_m->genre->str);
-			reverseString(reverse);
-
-			for (int i = 0;i < str_len - 1;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *(reverse + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - 1 - q_n)
-				accord_num++;
+                                                if (tmp_ma->next == NULL)
+                                                        break;
+                                                tmp_ma = tmp_ma->next;
+                                        }
+                                        accord=0;
 
 
-			accord = 0;
-			free(reverse);
+                                        if (accord_num > 0) {
+                                                printf("%d:", temp_m->serial_num);
+                                                printf("%s:", temp_m->title->str);
+                                                printf("%s:", temp_m->genre->str);
+                                                printf("%s:", temp_m->director->str);
+                                                printf("%d:", temp_m->year);
+                                                printf("%d", temp_m->time);
 
-			reverse = (char *)calloc(100, sizeof(char));
-			strcpy(reverse, temp_m->director->str);
-			reverseString(reverse);
+                                                tmp_ma = temp_m->actor;
 
-			for (int i = 0;i < str_len - 1;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *(reverse + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - 1 - q_n)
-				accord_num++;
+                                                while (1) {
+                                                        printf("%s", tmp_ma->str);
+                                                        if (tmp_ma->next == NULL)
+                                                                break;
+                                                        tmp_ma = tmp_ma->next;
+                                                        printf(", ");
+                                                }
+                                                printf("\n");
+                                        }
+                                        if (temp_m->next == NULL)
+                                                break;
+                                        accord_num=0;
+                                        temp_m = temp_m->next;
+                                }
+                        }
+                        else if (*str == '*') {
+                                temp_m = head_m;
+                                reverseString(str);
 
-			accord = 0;
-			free(reverse);
+                                while (1) {
+                                        reverse = (char *)calloc(100, sizeof(char));
+                                        strcpy(reverse, temp_m->title->str);
+                                        reverseString(reverse);
+                                        accord=0;
+                                        accord_num=0;
 
-			tmp_ma = temp_m->actor;
-			while (1) {
-				reverse = (char *)calloc(100, sizeof(char));
-				strcpy(reverse, tmp_ma->str);
-				reverseString(reverse);
+                                        for (int i = 0;i < str_len - 1;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *(reverse + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
 
-				for (int i = 0;i < str_len - 1;i++) {
-					if (*(str + i) == '?')
-						;
-					else if (*(str + i) == *(reverse + i))
-						accord++;
-					else
-						;
-				}
-				if (accord == str_len - 1 - q_n)
-					accord_num++;
+                                        accord = 0;
+                                        free(reverse);
 
-				accord = 0;
-				free(reverse);
+                                        reverse = (char *)calloc(100, sizeof(char));
+                                        strcpy(reverse, temp_m->genre->str);
+                                        reverseString(reverse);
 
-				if (tmp_ma->next == NULL)
-					break;
-				tmp_ma = tmp_ma->next;
-			}
+                                        for (int i = 0;i < str_len - 1;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *(reverse + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
 
-			if (accord_num > 0) {
 
-				printf("%d:", temp_m->serial_num);
-				printf("%s:", temp_m->title->str);
-				printf("%s:", temp_m->genre->str);
-				printf("%s:", temp_m->director->str);
-				printf("%d:", temp_m->year);
-				printf("%d", temp_m->time);
+                                        accord = 0;
+                                        free(reverse);
 
-				tmp_ma = temp_m->actor;
-				while (1) {
-					printf("%s", tmp_ma->str);
-					if (tmp_ma->next == NULL)
-						break;
-					tmp_ma = tmp_ma->next;
-					printf(", ");
-				}
-				printf("\n");
-			}
-			if (temp_m->next == NULL)
-				break;
-			temp_m = temp_m->next;
-		}
-	}
-	else {
-		temp_m = head_m;
-		while (1) {
-			accord = 0;
-			accord_num = 0;
+                                        reverse = (char *)calloc(100, sizeof(char));
+                                        strcpy(reverse, temp_m->director->str);
+                                        reverseString(reverse);
 
-			for (int i = 0;i < str_len;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_m->title->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - q_n)
-				accord_num++;
+                                        for (int i = 0;i < str_len - 1;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *(reverse + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
 
-			accord = 0;
-			for (int i = 0;i < str_len;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_m->genre->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - q_n)
-				accord_num++;
-			accord = 0;
+                                        accord = 0;
+                                        free(reverse);
 
-			for (int i = 0;i < str_len;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_m->director->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - q_n)
-				accord_num++;
-			accord = 0;
+                                        tmp_ma = temp_m->actor;
+                                        while (1) {
+                                                reverse = (char *)calloc(100, sizeof(char));
+                                                strcpy(reverse, tmp_ma->str);
+                                                reverseString(reverse);
 
-			tmp_ma = temp_m->actor;
-			while (1) {
-				for (int i = 0;i < str_len;i++) {
-					if (*(str + i) == '?')
-						;
-					else if (*(str + i) == *((tmp_ma->str) + i))
-						accord++;
-					else
-						;
-				}
-				if (accord == str_len - q_n)
-					accord_num++;
-				accord = 0;
+                                                for (int i = 0;i < str_len - 1;i++) {
+                                                        if (*(str + i) == '?')
+                                                                ;
+                                                        else if (*(str + i) == *(reverse + i))
+                                                                accord++;
+                                                        else
+                                                                ;
+                                                }
+                                                if (accord == str_len - 1 - q_n)
+                                                        accord_num++;
 
-				if (tmp_ma->next == NULL)
-					break;
-				tmp_ma = tmp_ma->next;
-			}
+                                                accord = 0;
+                                                free(reverse);
 
-			if (accord_num > 0) {
+                                                if (tmp_ma->next == NULL)
+                                                        break;
+                                                tmp_ma = tmp_ma->next;
+                                        }
 
-				printf("%d:", temp_m->serial_num);
-				printf("%s:", temp_m->title->str);
-				printf("%s:", temp_m->genre->str);
-				printf("%s:", temp_m->director->str);
-				printf("%d:", temp_m->year);
-				printf("%d", temp_m->time);
+                                        if (accord_num > 0) {
 
-				tmp_ma = temp_m->actor;
+                                                printf("%d:", temp_m->serial_num);
+                                                printf("%s:", temp_m->title->str);
+                                                printf("%s:", temp_m->genre->str);
+                                                printf("%s:", temp_m->director->str);
+                                                printf("%d:", temp_m->year);
+                                                printf("%d", temp_m->time);
 
-				while (1) {
-					printf("%s", tmp_ma->str);
-					if (tmp_ma->next == NULL)
-						break;
-					tmp_ma = tmp_ma->next;
-					printf(", ");
-				}
-				printf("\n");
-			}
-			if (temp_m->next == NULL)
-				break;
-			temp_m = temp_m->next;
-		}
-	}
+                                                tmp_ma = temp_m->actor;
+                                                while (1) {
+                                                        printf("%s", tmp_ma->str);
+                                                        if (tmp_ma->next == NULL)
+                                                                break;
+                                                        tmp_ma = tmp_ma->next;
+                                                        printf(", ");
+                                                }
+                                                printf("\n");
+                                        }
+                                        if (temp_m->next == NULL)
+                                                break;
+                                        temp_m = temp_m->next;
+                                }
+                        }
+                        else {
+                                temp_m = head_m;
+                                while (1) {
+                                        accord=0;
+                                        accord_num=0;
+
+                                        for (int i = 0;i < str_len;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_m->title->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - q_n)
+                                                accord_num++;
+
+                                        accord = 0;
+                                        for (int i = 0;i < str_len;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_m->genre->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - q_n)
+                                                accord_num++;
+                                        accord = 0;
+
+                                        for (int i = 0;i < str_len;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_m->director->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - q_n)
+                                                accord_num++;
+                                        accord = 0;
+
+                                        tmp_ma = temp_m->actor;
+                                        while (1) {
+                                                for (int i = 0;i < str_len;i++) {
+                                                        if (*(str + i) == '?')
+                                                                ;
+                                                        else if (*(str + i) == *((tmp_ma->str) + i))
+                                                                accord++;
+                                                        else
+                                                                ;
+                                                }
+                                                if (accord == str_len - q_n)
+                                                        accord_num++;
+                                                accord = 0;
+
+                                                if (tmp_ma->next == NULL)
+                                                        break;
+                                                tmp_ma = tmp_ma->next;
+                                        }
+
+                                        if (accord_num > 0) {
+
+                                                printf("%d:", temp_m->serial_num);
+                                                printf("%s:", temp_m->title->str);
+                                                printf("%s:", temp_m->genre->str);
+                                                printf("%s:", temp_m->director->str);
+                                                printf("%d:", temp_m->year);
+                                                printf("%d", temp_m->time);
+
+                                                tmp_ma = temp_m->actor;
+
+                                                while (1) {
+                                                        printf("%s", tmp_ma->str);
+                                                        if (tmp_ma->next == NULL)
+                                                                break;
+                                                        tmp_ma = tmp_ma->next;
+                                                        printf(", ");
+                                                }
+                                                printf("\n");
+                                        }
+                                        if (temp_m->next == NULL)
+                                                break;
+                                        temp_m = temp_m->next;
+                                }
+                        }
+
 	m--;
-}
-while(d>0){
-	printf("director 목록 출력\n");
-	if (*(str + str_len - 1) == '*') {
-		temp_d = head_d;
-		while (1) {
-			accord = 0;
-			accord_num = 0;
-
-			for (int i = 0;i < str_len - 1;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_d->name->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - 1 - q_n)
-				accord_num++;
-
-			accord = 0;
-
-			if (str_len == 1)
-				accord_num++;
-
-			accord = 0;
-
-			if (str_len < 9) {
-				for (int i = 0;i < str_len - 1;i++) {
-					if (*(str + i) == '?')
-						;
-					else if (*(str + i) == *((temp_d->birth->str) + i))
-						accord++;
-					else
-						;
-				}
-				if (accord == str_len - 1 - q_n)
-					accord_num++;
-				accord = 0;
-			}
-
-			tmp_d = temp_d->best_movies;
-			while (1) {
-				for (int i = 0;i < str_len - 1;i++) {
-					if (*(str + i) == '?')
-						;
-					else if (*(str + i) == *((tmp_d->str) + i))
-						accord++;
-					else
-						;
-				}
-				if (accord == str_len - 1 - q_n)
-					accord_num++;
-				accord = 0;
-
-				if (tmp_d->next == NULL)
-					break;
-				tmp_d = tmp_d->next;
-			}
-
-			if (accord_num > 0) {
-
-				printf("%d:", temp_d->serial_num);
-				printf("%s:", temp_d->name->str);
-				printf("%s:", temp_d->sex->str);
-				printf("%s:", temp_d->birth->str);
-
-				tmp_d = temp_d->best_movies;
-
-				while (1) {
-					printf("%s", tmp_d->str);
-					if (tmp_d->next == NULL)
-						break;
-					tmp_d = tmp_d->next;
-					printf(", ");
-				}
-				printf("\n");
-			}
-			if (temp_d->next == NULL)
-				break;
-			temp_d = temp_d->next;
-		}
-	}
-	else if (*str == '*') {
-		temp_d = head_d;
-		reverseString(str);
-
-		while (1) {
-			accord = 0;
-			accord_num = 0;
-
-			reverse = (char *)calloc(100, sizeof(char));
-			strcpy(reverse, temp_d->name->str);
-			reverseString(reverse);
-
-			for (int i = 0;i < str_len - 1;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *(reverse + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - 1 - q_n)
-				accord_num++;
-
-			accord = 0;
-			free(reverse);
-
-
-			if (str_len == 1)
-				accord_num++;
-
-
-			reverse = (char *)calloc(100, sizeof(char));
-			strcpy(reverse, temp_d->birth->str);
-			reverseString(reverse);
-
-			for (int i = 0;i < str_len - 1;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *(reverse + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - 1 - q_n)
-				accord_num++;
-
-			accord = 0;
-			free(reverse);
-
-			tmp_d = temp_d->best_movies;
-			while (1) {
-				reverse = (char *)calloc(100, sizeof(char));
-				strcpy(reverse, tmp_d->str);
-				reverseString(reverse);
-
-				for (int i = 0;i < str_len - 1;i++) {
-					if (*(str + i) == '?')
-						;
-					else if (*(str + i) == *(reverse + i))
-						accord++;
-					else
-						;
-				}
-				if (accord == str_len - 1 - q_n)
-					accord_num++;
-
-				accord = 0;
-				free(reverse);
-
-				if (tmp_d->next == NULL)
-					break;
-				tmp_d = tmp_d->next;
-			}
-
-			if (accord_num > 0) {
-
-				printf("%d:", temp_d->serial_num);
-				printf("%s:", temp_d->name->str);
-				printf("%s:", temp_d->sex->str);
-				printf("%s:", temp_d->birth->str);
-
-				tmp_d = temp_d->best_movies;
-				while (1) {
-					printf("%s", tmp_d->str);
-					if (tmp_d->next == NULL)
-						break;
-					tmp_d = tmp_d->next;
-					printf(", ");
-				}
-				printf("\n");
-			}
-			if (temp_d->next == NULL)
-				break;
-			temp_d = temp_d->next;
-		}
-	}
-	else {
-		temp_d = head_d;
-		while (1) {
-			accord = 0;
-			accord_num = 0;
-
-			for (int i = 0;i < str_len;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_d->name->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - q_n)
-				accord_num++;
-
-			accord = 0;
-			for (int i = 0;i < str_len;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_d->sex->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - q_n)
-				accord_num++;
-			accord = 0;
-
-			for (int i = 0;i < str_len;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_d->birth->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - q_n)
-				accord_num++;
-			accord = 0;
-
-			tmp_d = temp_d->best_movies;
-			while (1) {
-				for (int i = 0;i < str_len;i++) {
-					if (*(str + i) == '?')
-						;
-					else if (*(str + i) == *((tmp_d->str) + i))
-						accord++;
-					else
-						;
-				}
-				if (accord == str_len - q_n)
-					accord_num++;
-				accord = 0;
-
-				if (tmp_d->next == NULL)
-					break;
-				tmp_d = tmp_d->next;
-			}
-
-			if (accord_num > 0) {
-
-				printf("%d:", temp_d->serial_num);
-				printf("%s:", temp_d->name->str);
-				printf("%s:", temp_d->sex->str);
-				printf("%s:", temp_d->birth->str);
-
-				tmp_d = temp_d->best_movies;
-
-				while (1) {
-					printf("%s", tmp_d->str);
-					if (tmp_d->next == NULL)
-						break;
-					tmp_d = tmp_d->next;
-					printf(", ");
-				}
-				printf("\n");
-			}
-			if (temp_d->next == NULL)
-				break;
-			temp_d = temp_d->next;
-		}
-	}
-	d--;
 }
 while(a>0){
 	printf("actor 목록 출력\n");
-	if (*(str + str_len - 1) == '*') {
-		temp_a = head_a;
-		while (1) {
-			accord = 0;
-			accord_num = 0;
+	 if (*(str + str_len - 1) == '*') {
+                                temp_a = head_a;
+                                while (1) {
+                                        accord=0;
+                                        accord_num=0;
 
-			for (int i = 0;i < str_len - 1;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_a->name->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - 1 - q_n)
-				accord_num++;
+                                        for (int i = 0;i < str_len - 1;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_a->name->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
 
-			accord = 0;
+                                        accord = 0;
 
-			if (str_len == 1)
-				accord_num++;
-
-
-			accord = 0;
-			if (str_len < 9) {
-
-				for (int i = 0;i < str_len - 1;i++) {
-					if (*(str + i) == '?')
-						;
-					else if (*(str + i) == *((temp_a->birth->str) + i))
-						accord++;
-					else
-						;
-				}
-				if (accord == str_len - 1 - q_n)
-					accord_num++;
-				accord = 0;
-			}
-
-			tmp_a = temp_a->best_movies;
-
-			while (1) {
-				for (int i = 0;i < str_len - 1;i++) {
-					if (*(str + i) == '?')
-						;
-					else if (*(str + i) == *((tmp_a->str) + i))
-						accord++;
-					else
-						;
-				}
-				if (accord == str_len - 1 - q_n)
-					accord_num++;
-				accord = 0;
-
-				if (tmp_a->next == NULL)
-					break;
-				tmp_a = tmp_a->next;
-			}
-			accord = 0;
-
-			if (accord_num > 0) {
-
-				printf("%d:", temp_a->serial_num);
-				printf("%s:", temp_a->name->str);
-				printf("%s:", temp_a->sex->str);
-				printf("%s:", temp_a->birth->str);
-
-				tmp_a = temp_a->best_movies;
-
-				while (1) {
-					printf("%s", tmp_a->str);
-					if (tmp_a->next == NULL)
-						break;
-					tmp_a = tmp_a->next;
-					printf(", ");
-				}
-				printf("\n");
-			}
-			if (temp_a->next == NULL)
-				break;
-			accord_num = 0;
-			temp_a = temp_a->next;
-		}
-	}
-	else if (*str == '*') {
-		temp_a = head_a;
-		reverseString(str);
-
-		while (1) {
-			accord = 0;
-			accord_num = 0;
-
-			reverse = (char *)calloc(100, sizeof(char));
-			strcpy(reverse, temp_a->name->str);
-			reverseString(reverse);
-
-			for (int i = 0;i < str_len - 1;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *(reverse + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - 1 - q_n)
-				accord_num++;
-
-			accord = 0;
-			free(reverse);
+                                        if(str_len==1)
+                                                accord_num++;
 
 
-			if (str_len == 1)
-				accord_num++;
+                                        accord = 0;
+                                        if(str_len<9){
 
-			reverse = (char *)calloc(100, sizeof(char));
-			strcpy(reverse, temp_a->birth->str);
-			reverseString(reverse);
+                                        for (int i = 0;i < str_len-1;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_a->birth->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
+                                        accord = 0;}
 
-			if (str_len < 9) {
-				for (int i = 0;i < 8;i++) {
-					if (*(str + i) == '?')
-						;
-					else if (*(str + i) == *(reverse + i))
-						accord++;
-					else
-						;
-				}
-				if (accord == str_len - 1 - q_n)
-					accord_num++;
-			}
+                                        tmp_a = temp_a->best_movies;
 
-			accord = 0;
-			free(reverse);
+                                        while (1) {
+                                                for (int i = 0;i < str_len - 1;i++) {
+                                                        if (*(str + i) == '?')
+                                                                ;
+                                                        else if (*(str + i) == *((tmp_a->str) + i))
+                                                                accord++;
+                                                        else
+                                                                ;
+                                                }
+                                                if (accord == str_len - 1 - q_n)
+                                                        accord_num++;
+                                                accord = 0;
 
-			tmp_a = temp_a->best_movies;
-			while (1) {
-				reverse = (char *)calloc(100, sizeof(char));
-				strcpy(reverse, tmp_a->str);
-				reverseString(reverse);
+                                                if (tmp_a->next == NULL)
+                                                        break;
+                                                tmp_a = tmp_a->next;
+                                        }
+                                        accord=0;
 
-				for (int i = 0;i < str_len - 1;i++) {
-					if (*(str + i) == '?')
-						;
-					else if (*(str + i) == *(reverse + i))
-						accord++;
-					else
-						;
-				}
-				if (accord == str_len - 1 - q_n)
-					accord_num++;
+                                        if (accord_num > 0) {
 
-				accord = 0;
-				free(reverse);
+                                                printf("%d:", temp_a->serial_num);
+                                                printf("%s:", temp_a->name->str);
+                                                printf("%s:", temp_a->sex->str);
+                                                printf("%s:", temp_a->birth->str);
 
-				if (tmp_a->next == NULL)
-					break;
-				tmp_a = tmp_a->next;
-			}
+                                                tmp_a = temp_a->best_movies;
 
-			if (accord_num > 0) {
+                                                while (1) {
+                                                        printf("%s", tmp_a->str);
+                                                        if (tmp_a->next == NULL)
+                                                                break;
+                                                        tmp_a = tmp_a->next;
+                                                        printf(", ");
+                                                }
+                                                printf("\n");
+                                        }
+                                        if (temp_a->next == NULL)
+                                                break;
+                                        accord_num=0;
+                                        temp_a = temp_a->next;
+                                }
+                        }
+                        else if (*str == '*') {
+                                temp_a = head_a;
+                                reverseString(str);
 
-				printf("%d:", temp_a->serial_num);
-				printf("%s:", temp_a->name->str);
-				printf("%s:", temp_a->sex->str);
-				printf("%s:", temp_a->birth->str);
+                                while (1) {
+                                        accord=0;
+                                        accord_num=0;
 
-				tmp_a = temp_a->best_movies;
-				while (1) {
-					printf("%s", tmp_a->str);
-					if (tmp_a->next == NULL)
-						break;
-					tmp_a = tmp_a->next;
-					printf(", ");
-				}
-				printf("\n");
-			}
-			if (temp_a->next == NULL)
-				break;
-			temp_a = temp_a->next;
-		}
-	}
-	else {
-		temp_a = head_a;
-		while (1) {
-			accord = 0;
-			accord_num = 0;
+                                        reverse = (char *)calloc(100, sizeof(char));
+                                        strcpy(reverse, temp_a->name->str);
+                                        reverseString(reverse);
 
-			for (int i = 0;i < str_len;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_a->name->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - q_n)
-				accord_num++;
+                                        for (int i = 0;i < str_len - 1;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *(reverse + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
 
-			accord = 0;
-			for (int i = 0;i < str_len;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_a->sex->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - q_n)
-				accord_num++;
-			accord = 0;
+                                        accord = 0;
+                                        free(reverse);
 
-			for (int i = 0;i < str_len;i++) {
-				if (*(str + i) == '?')
-					;
-				else if (*(str + i) == *((temp_a->birth->str) + i))
-					accord++;
-				else
-					;
-			}
-			if (accord == str_len - q_n)
-				accord_num++;
-			accord = 0;
 
-			tmp_a = temp_a->best_movies;
-			while (1) {
-				for (int i = 0;i < str_len;i++) {
-					if (*(str + i) == '?')
-						;
-					else if (*(str + i) == *((tmp_a->str) + i))
-						accord++;
-					else
-						;
-				}
-				if (accord == str_len - q_n)
-					accord_num++;
-				accord = 0;
+                                        if(str_len==1)
+                                                accord_num++;
 
-				if (tmp_a->next == NULL)
-					break;
-				tmp_a = tmp_a->next;
-			}
+                                        reverse = (char *)calloc(100, sizeof(char));
+                                        strcpy(reverse, temp_a->birth->str);
+                                        reverseString(reverse);
 
-			if (accord_num > 0) {
+                                        if(str_len<9){
+                                        for (int i = 0;i < 8;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *(reverse + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;}
 
-				printf("%d:", temp_a->serial_num);
-				printf("%s:", temp_a->name->str);
-				printf("%s:", temp_a->sex->str);
-				printf("%s:", temp_a->birth->str);
+                                        accord = 0;
+                                        free(reverse);
 
-				tmp_a = temp_a->best_movies;
+                                        tmp_a = temp_a->best_movies;
+                                        while (1) {
+                                                reverse = (char *)calloc(100, sizeof(char));
+                                                strcpy(reverse, tmp_a->str);
+                                                reverseString(reverse);
 
-				while (1) {
-					printf("%s", tmp_a->str);
-					if (tmp_a->next == NULL)
-						break;
-					tmp_a = tmp_a->next;
-					printf(", ");
-				}
-				printf("\n");
-			}
-			if (temp_a->next == NULL)
-				break;
-			temp_a = temp_a->next;
-		}
-	}
+                                                for (int i = 0;i < str_len - 1;i++) {
+                                                        if (*(str + i) == '?')
+                                                                ;
+                                                        else if (*(str + i) == *(reverse + i))
+                                                                accord++;
+                                                        else
+                                                                ;
+                                                }
+                                                if (accord == str_len - 1 - q_n)
+                                                        accord_num++;
+
+                                                accord = 0;
+                                                free(reverse);
+
+                                                if (tmp_a->next == NULL)
+                                                        break;
+                                                tmp_a = tmp_a->next;
+                                        }
+
+                                        if (accord_num > 0) {
+
+                                                printf("%d:", temp_a->serial_num);
+                                                printf("%s:", temp_a->name->str);
+                                                printf("%s:", temp_a->sex->str);
+                                                printf("%s:", temp_a->birth->str);
+
+                                                tmp_a = temp_a->best_movies;
+                                                while (1) {
+                                                        printf("%s", tmp_a->str);
+                                                        if (tmp_a->next == NULL)
+                                                                break;
+                                                        tmp_a = tmp_a->next;
+                                                        printf(", ");
+                                                }
+                                                printf("\n");
+                                        }
+                                        if (temp_a->next == NULL)
+                                                break;
+                                        temp_a = temp_a->next;
+                                }
+                        }
+                        else {
+                                temp_a = head_a;
+                                while (1) {
+                                        accord=0;
+                                        accord_num=0;
+
+                                        for (int i = 0;i < str_len;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_a->name->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - q_n)
+                                                accord_num++;
+
+                                        accord = 0;
+                                        for (int i = 0;i < str_len;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_a->sex->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - q_n)
+                                                accord_num++;
+                                        accord = 0;
+
+                                        for (int i = 0;i < str_len;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_a->birth->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - q_n)
+                                                accord_num++;
+                                        accord = 0;
+
+                                        tmp_a = temp_a->best_movies;
+                                        while (1) {
+                                                for (int i = 0;i < str_len;i++) {
+                                                        if (*(str + i) == '?')
+                                                                ;
+                                                        else if (*(str + i) == *((tmp_a->str) + i))
+                                                                accord++;
+                                                        else
+                                                                ;
+                                                }
+                                                if (accord == str_len - q_n)
+                                                        accord_num++;
+                                                accord = 0;
+
+                                                if (tmp_a->next == NULL)
+                                                        break;
+                                                tmp_a = tmp_a->next;
+                                        }
+
+                                        if (accord_num > 0) {
+
+                                                printf("%d:", temp_a->serial_num);
+                                                printf("%s:", temp_a->name->str);
+                                                printf("%s:", temp_a->sex->str);
+                                                printf("%s:", temp_a->birth->str);
+
+                                                tmp_a = temp_a->best_movies;
+
+                                                while (1) {
+                                                        printf("%s", tmp_a->str);
+                                                        if (tmp_a->next == NULL)
+                                                                break;
+                                                        tmp_a = tmp_a->next;
+                                                        printf(", ");
+                                                }
+                                                printf("\n");
+                                        }
+                                        if (temp_a->next == NULL)
+                                                break;
+                                        temp_a = temp_a->next;
+                                }
+                        }
+
 	a--;
+}
+while(d>0){
+	printf("director 목록 출력\n");
+	                        if (*(str + str_len - 1) == '*') {
+                                temp_d = head_d;
+                                while (1) {
+                                        accord=0;
+                                        accord_num=0;
+
+                                        for (int i = 0;i < str_len - 1;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_d->name->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
+
+                                        accord = 0;
+
+                                        if(str_len==1)
+                                                accord_num++;
+
+                                        accord = 0;
+
+                                        if(str_len<9){
+                                        for (int i = 0;i < str_len - 1;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_d->birth->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
+                                        accord = 0;}
+
+                                        tmp_d = temp_d->best_movies;
+                                        while (1) {
+                                                for (int i = 0;i < str_len - 1;i++) {
+                                                        if (*(str + i) == '?')
+                                                                ;
+                                                        else if (*(str + i) == *((tmp_d->str) + i))
+                                                                accord++;
+                                                        else
+                                                                ;
+                                                }
+                                                if (accord == str_len - 1 - q_n)
+                                                        accord_num++;
+                                                accord = 0;
+
+                                                if (tmp_d->next == NULL)
+                                                        break;
+                                                tmp_d = tmp_d->next;
+                                        }
+
+                                        if (accord_num > 0) {
+
+                                                printf("%d:", temp_d->serial_num);
+                                                printf("%s:", temp_d->name->str);
+                                                printf("%s:", temp_d->sex->str);
+                                                printf("%s:", temp_d->birth->str);
+
+                                                tmp_d = temp_d->best_movies;
+
+                                                while (1) {
+                                                        printf("%s", tmp_d->str);
+                                                        if (tmp_d->next == NULL)
+                                                                break;
+                                                        tmp_d = tmp_d->next;
+                                                        printf(", ");
+                                                }
+                                                printf("\n");
+                                        }
+                                        if (temp_d->next == NULL)
+                                                break;
+                                        temp_d = temp_d->next;
+                                }
+                        }
+                        else if (*str == '*') {
+                                temp_d = head_d;
+                                reverseString(str);
+
+                                while (1) {
+                                        accord=0;
+                                        accord_num=0;
+
+                                        reverse = (char *)calloc(100, sizeof(char));
+                                        strcpy(reverse, temp_d->name->str);
+                                        reverseString(reverse);
+
+                                        for (int i = 0;i < str_len - 1;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *(reverse + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
+
+                                        accord = 0;
+                                        free(reverse);
+
+
+                                        if(str_len==1)
+                                                accord_num++;
+
+
+                                        reverse = (char *)calloc(100, sizeof(char));
+                                        strcpy(reverse, temp_d->birth->str);
+                                        reverseString(reverse);
+
+                                        for (int i = 0;i < str_len - 1;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *(reverse + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - 1 - q_n)
+                                                accord_num++;
+
+                                        accord = 0;
+                                        free(reverse);
+
+                                        tmp_d = temp_d->best_movies;
+                                        while (1) {
+                                                reverse = (char *)calloc(100, sizeof(char));
+                                                strcpy(reverse, tmp_d->str);
+                                                reverseString(reverse);
+
+                                                for (int i = 0;i < str_len - 1;i++) {
+                                                        if (*(str + i) == '?')
+                                                                ;
+                                                        else if (*(str + i) == *(reverse + i))
+                                                                accord++;
+                                                        else
+                                                                ;
+                                                }
+                                                if (accord == str_len - 1 - q_n)
+                                                        accord_num++;
+
+                                                accord = 0;
+                                                free(reverse);
+
+                                                if (tmp_d->next == NULL)
+                                                        break;
+                                                tmp_d = tmp_d->next;
+                                        }
+
+                                        if (accord_num > 0) {
+
+                                                printf("%d:", temp_d->serial_num);
+                                                printf("%s:", temp_d->name->str);
+                                                printf("%s:", temp_d->sex->str);
+                                                printf("%s:", temp_d->birth->str);
+
+                                                tmp_d = temp_d->best_movies;
+                                                while (1) {
+                                                        printf("%s", tmp_d->str);
+                                                        if (tmp_d->next == NULL)
+                                                                break;
+                                                        tmp_d = tmp_d->next;
+                                                        printf(", ");
+                                                }
+                                                printf("\n");
+                                        }
+                                        if (temp_d->next == NULL)
+                                                break;
+                                        temp_d = temp_d->next;
+                                }
+                        }
+
+                        else {
+                                temp_d = head_d;
+                                while (1) {
+                                        accord=0;
+                                        accord_num=0;
+
+                                        for (int i = 0;i < str_len;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_d->name->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - q_n)
+                                                accord_num++;
+
+                                        accord = 0;
+                                        for (int i = 0;i < str_len;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_d->sex->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - q_n)
+                                                accord_num++;
+                                        accord = 0;
+
+                                        for (int i = 0;i < str_len;i++) {
+                                                if (*(str + i) == '?')
+                                                        ;
+                                                else if (*(str + i) == *((temp_d->birth->str) + i))
+                                                        accord++;
+                                                else
+                                                        ;
+                                        }
+                                        if (accord == str_len - q_n)
+                                                accord_num++;
+                                        accord = 0;
+
+                                        tmp_d = temp_d->best_movies;
+                                        while (1) {
+                                                for (int i = 0;i < str_len;i++) {
+                                                        if (*(str + i) == '?')
+                                                                ;
+                                                        else if (*(str + i) == *((tmp_d->str) + i))
+                                                                accord++;
+                                                        else
+                                                                ;
+                                                }
+                                                if (accord == str_len - q_n)
+                                                        accord_num++;
+                                                accord = 0;
+
+                                                if (tmp_d->next == NULL)
+                                                        break;
+                                                tmp_d = tmp_d->next;
+                                        }
+
+                                        if (accord_num > 0) {
+
+                                                printf("%d:", temp_d->serial_num);
+                                                printf("%s:", temp_d->name->str);
+                                                printf("%s:", temp_d->sex->str);
+                                                printf("%s:", temp_d->birth->str);
+
+                                                tmp_d = temp_d->best_movies;
+
+                                                while (1) {
+                                                        printf("%s", tmp_d->str);
+                                                        if (tmp_d->next == NULL)
+                                                                break;
+                                                        tmp_d = tmp_d->next;
+                                                        printf(", ");
+                                                }
+                                                printf("\n");
+                                        }
+                                        if (temp_d->next == NULL)
+                                                break;
+                                        temp_d = temp_d->next;
+                                }
+                        }
+
+	d--;
 }
 return 0;
 }
