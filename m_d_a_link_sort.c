@@ -921,7 +921,7 @@ int main() {
 	char *tem, *mda, *option, *file_name,*p;
 	char *title, *genre, *director, *year, *run, *actor, *name, *sex, *birth, *movie;
 	int t = 0, g = 0, d = 0, y = 0, r = 0, a = 0, n = 0, s = 0, b = 0, m = 0, op = 0,file=0;
-	int num, i = 0, k = 0;
+	int num, i = 0, k = 0,overrlap;
 	int *p_year,*p_time;
 	struct sort *pointer=NULL;
 	FILE *save_file;
@@ -1070,6 +1070,7 @@ int main() {
 									tmp_ma = tmp_ma->next;
 								}
 							}
+							free((pointer+a)->str);
 							break;
 						}
 						if(temp_m->next==NULL)
@@ -1132,6 +1133,7 @@ int main() {
 									tmp_ma = tmp_ma->next;
 								}
 							}
+							free((pointer+a)->str);
 							break;
 						}
 						if(temp_m->next==NULL)
@@ -1195,6 +1197,7 @@ int main() {
 									tmp_ma = tmp_ma->next;
 								}
 							}
+							free((pointer+a)->str);
 							break;
 						}
 						if(temp_m->next==NULL)
@@ -1203,7 +1206,7 @@ int main() {
 					}
 				}
 			}
-						else if (y == 1) {
+			else if (y == 1) {
 				p_year = (int *)calloc(100, sizeof(int));
 				temp_m = head_m;
 
@@ -1256,6 +1259,7 @@ int main() {
 									tmp_ma = tmp_ma->next;
 								}
 							}
+							free((pointer+a)->str);
 							break;
 						}
 						if (temp_m->next == NULL)
@@ -1264,7 +1268,7 @@ int main() {
 					}
 				}
 			}
-									else if (r == 1) {
+			else if (r == 1) {
 				p_time = (int *)calloc(100, sizeof(int));
 				temp_m = head_m;
 
@@ -1317,6 +1321,7 @@ int main() {
 									tmp_ma = tmp_ma->next;
 								}
 							}
+							free((pointer+a)->str);
 							break;
 						}
 						if (temp_m->next == NULL)
@@ -1380,6 +1385,7 @@ int main() {
                                                                         tmp_ma = tmp_ma->next;
                                                                 }
                                                         }
+							free((pointer+a)->str);
                                                         break;
                                                 }
                                                 if(temp_m->next==NULL)
@@ -1444,6 +1450,7 @@ int main() {
                                                                         tmp_ma = tmp_ma->next;
                                                                 }
                                                         }
+							free((pointer+a)->str);
                                                         break;
                                                 }
                                                 if(temp_m->next==NULL)
@@ -1518,6 +1525,7 @@ int main() {
 								tmp_a = tmp_a->next;
 							}
 						}
+						free((pointer+a)->str);
 						break;
 					}
 					if (temp_a->next == NULL)
@@ -1544,7 +1552,7 @@ int main() {
 
 			 for (int a = 0;a < k + 1;a++) {
 				 temp_a = head_a;
-				 while (1) {
+					while(1){
 					 if (strcmp((pointer + a)->str, temp_a->sex->str) == 0)
 					 {
 						 printf("num : %d, ", temp_a->serial_num);
@@ -1576,12 +1584,14 @@ int main() {
 								 tmp_a = tmp_a->next;
 							 }
 						 }
+						 free((pointer+a)->str);
 						 break;
+					 
 					 }
-					 if (temp_a->next == NULL)
+					 if(temp_a->next==NULL)
 						 break;
 					 temp_a = temp_a->next;
-				 }
+					}
 			 }
 		 }
 		 else if (b == 1) {
@@ -1634,6 +1644,7 @@ int main() {
 								 tmp_a = tmp_a->next;
 							 }
 						 }
+						 free((pointer+a)->str);
 						 break;
 					 }
 					 if (temp_a->next == NULL)
@@ -1692,6 +1703,7 @@ int main() {
 								 tmp_a = tmp_a->next;
 							 }
 						 }
+						 free((pointer+a)->str);
 						 break;
 					 }
 					 if (temp_a->next == NULL)
@@ -1766,6 +1778,7 @@ int main() {
 								tmp_d = tmp_d->next;
 							}
 						}
+						free((pointer+a)->str);
 						break;
 					}
 					if (temp_d->next == NULL)
@@ -1824,6 +1837,7 @@ int main() {
 								 tmp_d = tmp_d->next;
 							 }
 						 }
+						 free((pointer+a)->str);
 						 break;
 					 }
 					 if (temp_d->next == NULL)
@@ -1882,6 +1896,7 @@ int main() {
 								 tmp_d = tmp_d->next;
 							 }
 						 }
+						 free((pointer+a)->str);
 						 break;
 					 }
 					 if (temp_d->next == NULL)
@@ -1940,6 +1955,7 @@ int main() {
 								 tmp_d = tmp_d->next;
 							 }
 						 }
+						 free((pointer+a)->str);
 						 break;
 					 }
 					 if (temp_d->next == NULL)
