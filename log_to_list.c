@@ -1,17 +1,13 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-struct movie_list {
+struct log_head {
 	int serial_num;
 	char *str;
-	struct movie_list *next;
 };
-int main(){
-	struct movie_list *head = NULL;
-	struct linked_list *tmp = NULL;
-	struct linked_list *ttmp = NULL;
-	struct movie_list *temp = NULL;
-	int i = 0, c,log_num=0,j=0,k=0,h=0,serial_num;
+void log_to_list(){
+	struct log_head *head=NULL;
+	int i = 0, c,log_num=0,j=0,serial_num,k=0;
 	char *array,*update,*p,*title,*genre,*director,*year,*time,*actor;
 
 	FILE *movie_log;
@@ -23,7 +19,7 @@ int main(){
 		if (c == '\n')
 			log_num++;
 	
-	head = (struct movie_list*)calloc(log_num, sizeof(struct movie_list));
+	head = (struct log_head*)calloc(log_num, sizeof(struct log_head));
 
 	rewind(movie_log);
 
@@ -159,7 +155,7 @@ int main(){
 				{break;}
 		}
 		}
-c=getc(movie_log);
+		c=getc(movie_log);
 		if (c != '=') {
 			*(update + j) = c;
 			j++;
@@ -317,5 +313,5 @@ c=getc(movie_log);
 
 	fclose(movie_log);
 	fclose(movie_list);
-	return 0;
+	return ;
 }
