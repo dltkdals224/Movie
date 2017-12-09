@@ -8,6 +8,9 @@ void print(char * mda,char * num,struct movie_list *movieHead,struct director_li
 	struct actor_list *actorTmp = actorHead;
 	struct a_title_to_title *atotTmp;
 //확인용//
+free(num);
+num = (char *)calloc(5,sizeof(char));
+int n=0;
 	printf("옵션 , 숫자 쳐\n");
 	scanf("%s %s",mda,num);
 
@@ -18,24 +21,25 @@ if(*mda == 'm')
 		{
 			while(atoi(num) != movieTmp -> serial_num)
 			{
+				printf("%d\n",movieTmp->serial_num);
 				if(movieTmp -> next == NULL)
 				{
-					printf("There is no %d\n",num);
+					printf("There is no %d\n",atoi(num));
 					return ;
 				}
 				movieTmp = movieTmp -> next;
 			}
-			if(atoi(num) == movieTmp -> serial_num) mtoaTmp = movieTmp -> actors;
+			if(atoi(num) == movieTmp -> serial_num) mtoaTmp = movieTmp -> actor;
 		}
 
 					//////////////////////
 		printf("(m)\n");
-	printf("%d, %s, %s\n",movieTmp -> serial_num,movieTmp -> title -> str,movieTmp -> genre -> str);
-	printf("D : %s(%s)\n",movieTmp -> director -> str, movieTmp -> director ->pair -> birth -> str);
+	printf("%d, %s, %s\n",movieTmp -> serial_num, movieTmp -> title -> str,movieTmp -> genre -> str);
+	printf("D : %s(%s)\n",movieTmp -> director -> str ,movieTmp -> director ->pair -> birth -> str);
 		if(mtoaTmp != NULL)
 		{
 			int i=1;
-			while(mtoaTmp -> next != NULL)
+			while(mtoaTmp != NULL)
 			{
 					  printf("A%d : %s(%s)\n",i++,mtoaTmp -> str, mtoaTmp -> pair -> birth -> str);
 						mtoaTmp = mtoaTmp -> next;
@@ -65,7 +69,7 @@ if(*mda == 'd')
 	printf("%d, %s, %s, %s\n",directorTmp->serial_num,directorTmp->name->str,directorTmp->sex->str,directorTmp->birth->str);
 		if(dtotTmp != NULL)
 		{
-			while(dtotTmp -> next != NULL)
+			while(dtotTmp != NULL)
 			{
 					  printf("%s %syear %sminutes)\n",dtotTmp -> str, dtotTmp -> title -> year,dtotTmp -> title -> time);
 						dtotTmp = dtotTmp -> next;
@@ -95,7 +99,7 @@ if(*mda == 'a')
 	printf("%d, %s, %s, %s\n",actorTmp->serial_num,actorTmp->name->str,actorTmp->sex->str,actorTmp->birth->str);
 		if(atotTmp != NULL)
 		{
-			while(dtotTmp -> next != NULL)
+			while(dtotTmp != NULL)
 			{
 					  printf("%s %syear %sminutes)\n",atotTmp -> str, atotTmp -> title -> year,atotTmp -> title -> time);
 						atotTmp = atotTmp -> next;
