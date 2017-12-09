@@ -1,13 +1,11 @@
 #include "user.h"
 
-//save 까지 해가서 합치기만 하면 일사천리 ㄹㅇ;
-//prompt_add랑 add함수 따로 만들어서 다시 해보자.!!
-
-
 int prompt_add(char *menu,char *mda)
 {
 
-  FILE *ifp = NULL;
+  FILE *movie_log = NULL;
+  FILE *director_log = NULL;
+  FILE *acotr_log = NULL;
 
   if( *menu == 'a' && *(menu + 1) == 'd' && *(menu + 2) == 'd' )
     if( *mda == 'm' )
@@ -45,12 +43,12 @@ int prompt_add(char *menu,char *mda)
     scanf("%[^\n]", actors);
     getchar();
 
-    ifp = fopen("movie_log.txt","a");
+    movie_log = fopen("movie_log.txt","a");
 
     //serial_number 적용 함수 적용되지 않아서 임의로 이렇게 두었습니다.
-    fprintf(ifp,"add:i:%s:%s:%s:%s:%s:%s\n",title,genre,director,year,times,actors);
+    fprintf(movie_log,"add:i:%s:%s:%s:%s:%s:%s\n",title,genre,director,year,times,actors);
 
-    fclose(ifp);
+    fclose(movie_log);
 
     }
 
@@ -79,12 +77,12 @@ int prompt_add(char *menu,char *mda)
     scanf("%[^\n]",best_movies);
     getchar();
 
-    ifp = fopen("director_log.txt","a");
+    director_log = fopen("director_log.txt","a");
 
     //serial_number 적용 함수 적용되지 않아서 임의로 이렇게 두었습니다.
-    fprintf(ifp,"add:i:%s:%s:%s:%s\n",name,sex,birth,best_movies);
+    fprintf(director_log,"add:i:%s:%s:%s:%s\n",name,sex,birth,best_movies);
 
-    fclose(ifp);
+    fclose(director_log);
 
 
     }
@@ -116,12 +114,12 @@ int prompt_add(char *menu,char *mda)
       scanf("%[^\n]",best_movies);
       getchar();
 
-      ifp = fopen("actor_log.txt","a");
+      actor_log = fopen("actor_log.txt","a");
 
       //serial_number 적용 함수 적용되지 않아서 임의로 이렇게 두었습니다.
-      fprintf(ifp,"add:i:%s:%s:%s:%s\n",name,sex,birth,best_movies);
+      fprintf(actor_log,"add:i:%s:%s:%s:%s\n",name,sex,birth,best_movies);
 
-      fclose(ifp);
+      fclose(actor_log);
 
     }
 
