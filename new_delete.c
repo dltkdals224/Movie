@@ -3,35 +3,37 @@
 int delete(char *menu, char *mda, char *num)
 {
 
-  FILE *ifp = NULL;
+  FILE *movie_log = NULL;
+  FILE *director_log = NULL;
+  FILE *actor_log = NULL;
 
 if( *menu == 'd' && *(menu + 1) == 'e' && *(menu + 2) == 'l' && *(menu + 3) == 'e' && *(menu + 4) == 't' && *(menu + 5) == 'e')
 {
   if( *mda == 'm' )
   {
-    ifp = fopen("movie_log.txt","a");
+    movie_log = fopen("movie_log.txt","a");
 
-    fprintf(ifp,"delete:%s:=:=:=:=:=:=\n", num );
+    fprintf(movie_log,"delete:%s:=:=:=:=:=:=\n", num );
 
-    fclose(ifp);
+    fclose(movie_log);
   }
 
   if( *mda == 'd' )
   {
-    ifp = fopen("director_log.txt","a");
+    director_log = fopen("director_log.txt","a");
 
-    fprintf(ifp,"delete:%s:=:=:=:=:=:=\n", num );
+    fprintf(director_log,"delete:%s:=:=:=:=:=:=\n", num );
 
-    fclose(ifp);
+    fclose(director_log);
   }
 
   if( *mda == 'a' )
   {
-    ifp = fopen("actor_log.txt","a");
+    actor_log = fopen("actor_log.txt","a");
 
-    fprintf(ifp,"delete:%s:=:=:=:=:=:=\n", num );
+    fprintf(actor_log,"delete:%s:=:=:=:=:=:=\n", num );
 
-    fclose(ifp);
+    fclose(actor_log);
   }
 }
 
