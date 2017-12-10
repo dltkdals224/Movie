@@ -1,6 +1,7 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
+#include<time.h>
 struct movie_list {
 	int serial_num;
 	struct linked_list *title;
@@ -902,15 +903,38 @@ struct log_head {
 	int serial_num;
 	char *str;
 };
-void log_to_list_m(){
+int log_to_list_m(){
 	struct log_head *head=NULL;
 	int i = 0, c,log_num=0,j=0,serial_num,k=0;
-	char *array,*update,*p,*title,*genre,*director,*year,*time,*actor;
+	char *array,*re_name,*update,*p,*title,*genre,*director,*year,*timi,*actor;
+	time_t t=time(NULL);
+	struct tm tm=*localtime(&t);
 
 	FILE *movie_log;
 	FILE *movie_list;
-	movie_list = fopen("movie_list", "w+");
+	FILE *origin_movie_list;
 	movie_log = fopen("movie_log", "r");
+
+	if((movie_list=fopen("movie_list","r"))==NULL){
+		fclose(movie_list);
+		movie_list=fopen("movie_list","w");
+	}
+	else{
+		re_name=(char *)calloc(100,sizeof(char));
+		sprintf(re_name,"movie_list.%d%20d%20d%20d%20d",tm.tm_year+1900,tm.tm_mon+1,tm.tm_mday,tm.tm_hour,tm.tm_min);
+		origin_movie_list=fopen(re_name,"w");
+		while(1){
+			c-fgetc(movie_list);
+			if(!feof(movie_list))
+					fputc(c,origin_movie_list);
+			else
+				break;
+		}
+		fclose(movie_list);
+		fclose(origin_movie_list);
+	
+		movie_list=fopen("movie_list","w");
+	}
 
 	while((c=getc(movie_log))!=EOF)
 		if (c == '\n')
@@ -990,7 +1014,7 @@ void log_to_list_m(){
 		p = strtok(NULL, ":");
 		year = p;
 		p = strtok(NULL, ":");
-		time = p;
+		timi = p;
 		p = strtok(NULL, "\n");
 		actor = p;
 
@@ -1125,7 +1149,7 @@ void log_to_list_m(){
 			}
 		}
 		else {
-			strcat(update, time);
+			strcat(update, timi);
 			j=0;
 			for (int a = 0;*(update + a) != '\0';a++)
 				j++;
@@ -1209,17 +1233,41 @@ void log_to_list_m(){
 
 	fclose(movie_log);
 	fclose(movie_list);
-	return ;
+	return i;
 }
-void log_to_list_d(){
+int log_to_list_d(){
 	struct log_head *head = NULL;
 	int i = 0, c, log_num = 0, j = 0, serial_num, k = 0;
-	char *array, *update, *p, *name, *sex, *birth, *best_movies;
+	char *array,*re_name, *update, *p, *name, *sex, *birth, *best_movies;
+	time_t t=time(NULL);
+	struct tm tm=*localtime(&t);
 
 	FILE *director_log;
 	FILE *director_list;
+	FILE *origin_director_list;
 	director_log = fopen("director_log", "r");
-	director_list = fopen("director_list", "w+");
+
+	if((director_list=fopen("director_list","r"))==NULL)
+	{
+		fclose(director_list);
+		director_list=fopen("director_list","w");
+	}
+	else{
+		re_name=(char *)calloc(100,sizeof(char));
+		sprintf(re_name,"director_list.%d%20d%20d%20d%20d",tm.tm_year+1900,tm.tm_mon+1,tm.tm_mday,tm.tm_hour,tm.tm_min);
+		origin_director_list=fopen(re_name,"w");
+		while(1){
+			c=fgetc(director_list);
+			if(!feof(director_list))
+				fputc(c,origin_director_list);
+			else 
+				break;
+		}
+		fclose(director_list);
+		fclose(origin_director_list);
+
+		director_list=fopen("director_list","w");
+	}
 
 	while ((c = getc(director_log)) != EOF)
 		if (c == '\n')
@@ -1457,20 +1505,46 @@ void log_to_list_d(){
 			else
 				;
 		}
-
+printf("%d",i);
 		fclose(director_log);
 		fclose(director_list);
-		return;
+		return i;
 }
-void log_to_list_a(){
+int log_to_list_a(){
 	struct log_head *head = NULL;
 	int i = 0, c, log_num = 0,j = 0, serial_num, k = 0;
-	char *array, *update, *p, *name, *birth, *sex, *best_movies;
+	char *array,*re_name, *update, *p, *name, *birth, *sex, *best_movies;
+	time_t t=time(NULL);
+	struct tm tm=*localtime(&t);
 
 	FILE *actor_log;
 	FILE *actor_list;
-	actor_list = fopen("actor_list", "w+");
+	FILE *origin_actor_list;
 	actor_log = fopen("actor_log", "r");
+
+	if((actor_list=fopen("actor_list","r"))==NULL)
+	{
+		fclose(actor_list);
+		actor_list=fopen("actor_list","w");
+	}
+	else
+	{
+		re_name=(char *)calloc(100,sizeof(char));
+		sprintf(re_name,"movie_list.%d%02d%02d%02d%02d",tm.tm_year+1900,tm.tm_mon+1,tm.tm_mday,tm.tm_hour,tm.tm_min);
+		origin_actor_list=fopen(re_name,"w");
+		while(1){
+			c=fgetc(actor_list);
+
+			if(!feof(actor_list))
+					fputc(c,origin_actor_list);
+			else
+				break;
+		}
+		fclose(actor_list);
+		fclose(origin_actor_list);
+
+		actor_list=fopen("actor_list","w");
+	}
 
 	while ((c = getc(actor_log)) != EOF)
 		if (c == '\n')
@@ -1712,7 +1786,7 @@ void log_to_list_a(){
 
 		fclose(actor_log);
 		fclose(actor_list);
-		return;
+		return i;
 }
 
 void update(struct movie_list *head_m,struct director_list *head_d,struct actor_list *head_a) {
@@ -1944,9 +2018,7 @@ void update(struct movie_list *head_m,struct director_list *head_d,struct actor_
 		else if (m == 0)
 			fprintf(actor_log, "=\n");
 		
-
-	}
-	fclose(actor_log);
+	fclose(actor_log);}
 	//원래 동적메모리 전부 free하는 함수
 	log_to_list_a();
 	//movie_memory_make(&head_m, &temp_m);
