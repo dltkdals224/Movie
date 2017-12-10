@@ -1392,7 +1392,7 @@ void m_d_a_link(struct movie_list **head_m, struct director_list **head_d, struc
 		if (temp_m->next == NULL)
 			break;
 		temp_m = temp_m->next;
-	}//movieÀÇ director¿¡¼­ director·Î ¿¬°á
+	}//movieì˜ directorì—ì„œ directorë¡œ ì—°ê²°
 
 	temp_m = *head_m;
 	while (1) {
@@ -1415,7 +1415,7 @@ void m_d_a_link(struct movie_list **head_m, struct director_list **head_d, struc
 		if (temp_m->next == NULL)
 			break;
 		temp_m = temp_m->next;
-	}//movieÀÇ actor¿¡¼­ actor·Î ¿¬°á
+	}//movieì˜ actorì—ì„œ actorë¡œ ì—°ê²°
 
 	temp_d = *head_d;
 	while (1) {
@@ -1438,7 +1438,7 @@ void m_d_a_link(struct movie_list **head_m, struct director_list **head_d, struc
 		if (temp_d->next == NULL)
 			break;
 		temp_d = temp_d->next;
-	}//directorÀÇ title¿¡¼­ movie·Î ¿¬°á
+	}//directorì˜ titleì—ì„œ movieë¡œ ì—°ê²°
 
 	temp_a = *head_a;
 	while (1) {
@@ -1461,7 +1461,7 @@ void m_d_a_link(struct movie_list **head_m, struct director_list **head_d, struc
 		if (temp_a->next == NULL)
 			break;
 		temp_a = temp_a->next;
-	}//actorÀÇ title¿¡¼­ movie·Î ¿¬°á
+	}//actorì˜ titleì—ì„œ movieë¡œ ì—°ê²°
 
 	temp_d = *head_d;
 	while (1) {
@@ -1491,7 +1491,7 @@ void m_d_a_link(struct movie_list **head_m, struct director_list **head_d, struc
 		if (temp_d->next == NULL)
 			break;
 		temp_d = temp_d->next;
-	}//directorÀÇ title°ú actorÀÇ title »óÈ£ ¿¬°á
+	}//directorì˜ titleê³¼ actorì˜ title ìƒí˜¸ ì—°ê²°
 
 	return;
 }
