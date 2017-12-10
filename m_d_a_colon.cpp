@@ -94,13 +94,17 @@ void director_memory_make(struct director_list **head, struct director_list **te
 					p = strtok((*head)->name->str, "?");
 					q = p;
 					p = strtok(NULL, ";");
-					p = strtok(NULL, "\0");
-					strcat(q, ":");
-					strcat(q, p);
-					free((*head)->name->str);
-					(*head)->name->str = q;
+					if (*(((*head)->name->str) + a + 3) != '\0') {
+						p = strtok(NULL, '\0');
+						strcat(q, ":");
+						strcat(q, p);
+					}
+					else strcat(q, ":");
+					strcpy((*head)->name->str, q);
+
 				}
 			}
+
 
 			i = 0;
 
@@ -133,16 +137,19 @@ void director_memory_make(struct director_list **head, struct director_list **te
 			while (1) {
 				c = getc(director_list);
 				if (c == '\n') {
-					for (int a = 0;*(array+a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+					for (int a = 0;*(array + a) != '\0';a++) {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
 					ttmp = (*head)->best_movies;
@@ -155,15 +162,18 @@ void director_memory_make(struct director_list **head, struct director_list **te
 				}
 				else if (feof(director_list)) {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
 					ttmp = (*head)->best_movies;
@@ -176,15 +186,18 @@ void director_memory_make(struct director_list **head, struct director_list **te
 				}
 				else if (c == ',') {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
 					if ((*head)->best_movies->next == NULL) {
@@ -193,15 +206,18 @@ void director_memory_make(struct director_list **head, struct director_list **te
 					}
 					else {
 						for (int a = 0;*(array + a) != '\0';a++) {
-							if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+							if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 								p = strtok(array, "?");
 								q = p;
 								p = strtok(NULL, ";");
-								p = strtok(NULL, "\0");
-								strcat(q, ":");
-								strcat(q, p);
-								free(array);
-								array = q;
+								if (*(array + a + 3) != '\0') {
+									p = strtok(NULL, '\0');
+									strcat(q, ":");
+									strcat(q, p);
+								}
+								else strcat(q, ":");
+								strcpy(array, q);
+
 							}
 						}
 						ttmp = (*head)->best_movies;
@@ -259,13 +275,17 @@ void director_memory_make(struct director_list **head, struct director_list **te
 					p = strtok((*temp)->name->str, "?");
 					q = p;
 					p = strtok(NULL, ";");
-					p = strtok(NULL, "\0");
-					strcat(q, ":");
-					strcat(q, p);
-					free((*temp)->name->str);
-					(*temp)->name->str = q;
+					if (*(((*temp)->name->str) + a + 3) != '\0') {
+						p = strtok(NULL, '\0');
+						strcat(q, ":");
+						strcat(q, p);
+					}
+					else strcat(q, ":");
+					strcpy((*temp)->name->str, q);
+
 				}
 			}
+
 			i = 0;
 
 			(*temp)->next->sex = (struct linked_list *)calloc(1, sizeof(struct linked_list));
@@ -298,17 +318,21 @@ void director_memory_make(struct director_list **head, struct director_list **te
 				c = getc(director_list);
 				if (c == '\n') {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					ttmp = (*temp)->next->best_movies;
 					while (ttmp->next != NULL)
 						ttmp = ttmp->next;
@@ -319,17 +343,21 @@ void director_memory_make(struct director_list **head, struct director_list **te
 				}
 				else if (feof(director_list)) {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					ttmp = (*temp)->next->best_movies;
 					while (ttmp->next != NULL)
 						ttmp = ttmp->next;
@@ -340,34 +368,42 @@ void director_memory_make(struct director_list **head, struct director_list **te
 				}
 				else if (c == ',') {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					if ((*temp)->next->best_movies->next == NULL) {
 						(*temp)->next->best_movies->next = (struct d_title_to_title *)calloc(1, sizeof(struct d_title_to_title));
 						strcpy((*temp)->next->best_movies->str, array);
 					}
 					else {
 						for (int a = 0;*(array + a) != '\0';a++) {
-							if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+							if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 								p = strtok(array, "?");
 								q = p;
 								p = strtok(NULL, ";");
-								p = strtok(NULL, "\0");
-								strcat(q, ":");
-								strcat(q, p);
-								free(array);
-								array = q;
+								if (*(array + a + 3) != '\0') {
+									p = strtok(NULL, '\0');
+									strcat(q, ":");
+									strcat(q, p);
+								}
+								else strcat(q, ":");
+								strcpy(array, q);
+
 							}
 						}
+
 						ttmp = (*temp)->next->best_movies;
 						while (ttmp->next != NULL)
 							ttmp = ttmp->next;
@@ -453,13 +489,17 @@ void actor_memory_make(struct actor_list **head, struct actor_list **temp) {
 					p = strtok((*head)->name->str, "?");
 					q = p;
 					p = strtok(NULL, ";");
-					p = strtok(NULL, "\0");
-					strcat(q, ":");
-					strcat(q, p);
-					free((*head)->name->str);
-					(*head)->name->str = q;
+					if (*(((*head)->name->str) + a + 3) != '\0') {
+						p = strtok(NULL, '\0');
+						strcat(q, ":");
+						strcat(q, p);
+					}
+					else strcat(q, ":");
+					strcpy((*head)->name->str, q);
+
 				}
 			}
+
 			i = 0;
 
 			(*head)->sex = (struct linked_list *)calloc(1, sizeof(struct linked_list));
@@ -493,17 +533,21 @@ void actor_memory_make(struct actor_list **head, struct actor_list **temp) {
 				c = getc(actor_list);
 				if (c == '\n') {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					ttmp = (*head)->best_movies;
 					while (ttmp->next != NULL)
 						ttmp = ttmp->next;
@@ -514,17 +558,21 @@ void actor_memory_make(struct actor_list **head, struct actor_list **temp) {
 				}
 				else if (feof(actor_list)) {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					ttmp = (*head)->best_movies;
 					while (ttmp->next != NULL)
 						ttmp = ttmp->next;
@@ -535,34 +583,42 @@ void actor_memory_make(struct actor_list **head, struct actor_list **temp) {
 				}
 				else if (c == ',') {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					if ((*head)->best_movies->next == NULL) {
 						(*head)->best_movies->next = (struct a_title_to_title *)calloc(1, sizeof(struct a_title_to_title));
 						strcpy((*head)->best_movies->str, array);
 					}
 					else {
 						for (int a = 0;*(array + a) != '\0';a++) {
-							if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+							if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 								p = strtok(array, "?");
 								q = p;
 								p = strtok(NULL, ";");
-								p = strtok(NULL, "\0");
-								strcat(q, ":");
-								strcat(q, p);
-								free(array);
-								array = q;
+								if (*(array + a + 3) != '\0') {
+									p = strtok(NULL, '\0');
+									strcat(q, ":");
+									strcat(q, p);
+								}
+								else strcat(q, ":");
+								strcpy(array, q);
+
 							}
 						}
+
 						ttmp = (*head)->best_movies;
 						while (ttmp->next != NULL)
 							ttmp = ttmp->next;
@@ -617,13 +673,17 @@ void actor_memory_make(struct actor_list **head, struct actor_list **temp) {
 					p = strtok((*temp)->name->str, "?");
 					q = p;
 					p = strtok(NULL, ";");
-					p = strtok(NULL, "\0");
-					strcat(q, ":");
-					strcat(q, p);
-					free((*temp)->name->str);
-					(*temp)->name->str = q;
+					if (*(((*temp)->name->str) + a + 3) != '\0') {
+						p = strtok(NULL, '\0');
+						strcat(q, ":");
+						strcat(q, p);
+					}
+					else strcat(q, ":");
+					strcpy((*temp)->name->str, q);
+
 				}
 			}
+
 			i = 0;
 
 			(*temp)->next->sex = (struct linked_list *)calloc(1, sizeof(struct linked_list));
@@ -656,17 +716,21 @@ void actor_memory_make(struct actor_list **head, struct actor_list **temp) {
 				c = getc(actor_list);
 				if (c == '\n') {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					ttmp = (*temp)->next->best_movies;
 					while (ttmp->next != NULL)
 						ttmp = ttmp->next;
@@ -677,17 +741,21 @@ void actor_memory_make(struct actor_list **head, struct actor_list **temp) {
 				}
 				else if (feof(actor_list)) {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					ttmp = (*temp)->next->best_movies;
 					while (ttmp->next != NULL)
 						ttmp = ttmp->next;
@@ -698,34 +766,42 @@ void actor_memory_make(struct actor_list **head, struct actor_list **temp) {
 				}
 				else if (c == ',') {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					if ((*temp)->next->best_movies->next == NULL) {
 						(*temp)->next->best_movies->next = (struct a_title_to_title *)calloc(1, sizeof(struct a_title_to_title));
 						strcpy((*temp)->next->best_movies->str, array);
 					}
 					else {
 						for (int a = 0;*(array + a) != '\0';a++) {
-							if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+							if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 								p = strtok(array, "?");
 								q = p;
 								p = strtok(NULL, ";");
-								p = strtok(NULL, "\0");
-								strcat(q, ":");
-								strcat(q, p);
-								free(array);
-								array = q;
+								if (*(array + a + 3) != '\0') {
+									p = strtok(NULL, '\0');
+									strcat(q, ":");
+									strcat(q, p);
+								}
+								else strcat(q, ":");
+								strcpy(array, q);
+
 							}
 						}
+
 						ttmp = (*temp)->next->best_movies;
 						while (ttmp->next != NULL)
 							ttmp = ttmp->next;
@@ -813,13 +889,17 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 					p = strtok((*head)->title->str, "?");
 					q = p;
 					p = strtok(NULL, ";");
-					p = strtok(NULL, "\0");
-					strcat(q, ":");
-					strcat(q, p);
-					free((*head)->title->str);
-					(*head)->title->str = q;
+					if (*(((*head)->title->str) + a + 3) != '\0') {
+						p = strtok(NULL, '\0');
+						strcat(q, ":");
+						strcat(q, p);
+					}
+					else strcat(q, ":");
+					strcpy((*head)->title->str, q);
+
 				}
 			}
+
 			i = 0;
 
 			(*head)->genre = (struct linked_list *)calloc(1, sizeof(struct linked_list));
@@ -836,13 +916,17 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 					p = strtok((*head)->genre->str, "?");
 					q = p;
 					p = strtok(NULL, ";");
-					p = strtok(NULL, "\0");
-					strcat(q, ":");
-					strcat(q, p);
-					free((*head)->genre->str);
-					(*head)->genre->str = q;
+					if (*(((*head)->genre->str) + a + 3) != '\0') {
+						p = strtok(NULL, '\0');
+						strcat(q, ":");
+						strcat(q, p);
+					}
+					else strcat(q, ":");
+					strcpy((*head)->genre->str, q);
+
 				}
 			}
+
 			i = 0;
 
 
@@ -860,13 +944,17 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 					p = strtok((*head)->director->str, "?");
 					q = p;
 					p = strtok(NULL, ";");
-					p = strtok(NULL, "\0");
-					strcat(q, ":");
-					strcat(q, p);
-					free((*head)->director->str);
-					(*head)->director->str = q;
+					if (*(((*head)->director->str) + a + 3) != '\0') {
+						p = strtok(NULL, '\0');
+						strcat(q, ":");
+						strcat(q, p);
+					}
+					else strcat(q, ":");
+					strcpy((*head)->director->str, q);
+
 				}
 			}
+
 			i = 0;
 
 			array = (char *)calloc(40, sizeof(char));
@@ -900,17 +988,21 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 				c = getc(movie_list);
 				if (c == '\n') {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					ttmp = (*head)->actor;
 					while (ttmp->next != NULL)
 						ttmp = ttmp->next;
@@ -921,17 +1013,21 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 				}
 				else if (feof(movie_list)) {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					ttmp = (*head)->actor;
 					while (ttmp->next != NULL)
 						ttmp = ttmp->next;
@@ -944,17 +1040,21 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 
 				else if (c == ',') {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					if ((*head)->actor->next == NULL) {
 						(*head)->actor->next = (struct movie_to_actor *)calloc(1, sizeof(struct movie_to_actor));
 
@@ -962,17 +1062,21 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 					}
 					else {
 						for (int a = 0;*(array + a) != '\0';a++) {
-							if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+							if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 								p = strtok(array, "?");
 								q = p;
 								p = strtok(NULL, ";");
-								p = strtok(NULL, "\0");
-								strcat(q, ":");
-								strcat(q, p);
-								free(array);
-								array = q;
+								if (*(array + a + 3) != '\0') {
+									p = strtok(NULL, '\0');
+									strcat(q, ":");
+									strcat(q, p);
+								}
+								else strcat(q, ":");
+								strcpy(array, q);
+
 							}
 						}
+
 						ttmp = (*head)->actor;
 						while (ttmp->next != NULL)
 							ttmp = ttmp->next;
@@ -1028,13 +1132,18 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 					p = strtok((*temp)->title->str, "?");
 					q = p;
 					p = strtok(NULL, ";");
-					p = strtok(NULL, "\0");
-					strcat(q, ":");
-					strcat(q, p);
-					free((*temp)->title->str);
-					(*temp)->title->str = q;
+					if (*(((*temp)->title->str) + a + 3) != '\0') {
+						p = strtok(NULL, '\0');
+						strcat(q, ":");
+						strcat(q, p);
+					}
+					else strcat(q, ":");
+					strcpy((*temp)->title->str, q);
+
 				}
 			}
+
+
 			i = 0;
 
 			(*temp)->next->genre = (struct linked_list *)calloc(1, sizeof(struct linked_list));
@@ -1051,11 +1160,14 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 					p = strtok((*temp)->genre->str, "?");
 					q = p;
 					p = strtok(NULL, ";");
-					p = strtok(NULL, "\0");
-					strcat(q, ":");
-					strcat(q, p);
-					free((*temp)->genre->str);
-					(*temp)->genre->str = q;
+					if (*(((*temp)->genre->str) + a + 3) != '\0') {
+						p = strtok(NULL, '\0');
+						strcat(q, ":");
+						strcat(q, p);
+					}
+					else strcat(q, ":");
+					strcpy((*temp)->genre->str, q);
+
 				}
 			}
 			i = 0;
@@ -1075,13 +1187,17 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 					p = strtok((*temp)->director->str, "?");
 					q = p;
 					p = strtok(NULL, ";");
-					p = strtok(NULL, "\0");
-					strcat(q, ":");
-					strcat(q, p);
-					free((*temp)->director->str);
-					(*temp)->director->str = q;
+					if (*(((*temp)->director->str) + a + 3) != '\0') {
+						p = strtok(NULL, '\0');
+						strcat(q, ":");
+						strcat(q, p);
+					}
+					else strcat(q, ":");
+					strcpy((*temp)->director->str, q);
+
 				}
 			}
+
 			i = 0;
 
 			array = (char *)calloc(40, sizeof(char));
@@ -1115,17 +1231,21 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 				c = getc(movie_list);
 				if (c == '\n') {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					ttmp = (*temp)->next->actor;
 					while (ttmp->next != NULL)
 						ttmp = ttmp->next;
@@ -1136,17 +1256,21 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 				}
 				else if (feof(movie_list)) {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					ttmp = (*temp)->next->actor;
 					while (ttmp->next != NULL)
 						ttmp = ttmp->next;
@@ -1158,17 +1282,21 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 
 				else if (c == ',') {
 					for (int a = 0;*(array + a) != '\0';a++) {
-						if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+						if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 							p = strtok(array, "?");
 							q = p;
 							p = strtok(NULL, ";");
-							p = strtok(NULL, "\0");
-							strcat(q, ":");
-							strcat(q, p);
-							free(array);
-							array = q;
+							if (*(array + a + 3) != '\0') {
+								p = strtok(NULL, '\0');
+								strcat(q, ":");
+								strcat(q, p);
+							}
+							else strcat(q, ":");
+							strcpy(array, q);
+
 						}
 					}
+
 					if ((*temp)->next->actor->next == NULL) {
 						(*temp)->next->actor->next = (struct movie_to_actor *)calloc(1, sizeof(struct movie_to_actor));
 
@@ -1176,17 +1304,21 @@ void movie_memory_make(struct movie_list **head, struct movie_list **temp) {
 					}
 					else {
 						for (int a = 0;*(array + a) != '\0';a++) {
-							if (*(array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
+							if ((*array + a) == '?'&&*(array + a + 1) == '?'&&*(array + a + 2) == ';') {
 								p = strtok(array, "?");
 								q = p;
 								p = strtok(NULL, ";");
-								p = strtok(NULL, "\0");
-								strcat(q, ":");
-								strcat(q, p);
-								free(array);
-								array = q;
+								if (*(array + a + 3) != '\0') {
+									p = strtok(NULL, '\0');
+									strcat(q, ":");
+									strcat(q, p);
+								}
+								else strcat(q, ":");
+								strcpy(array, q);
+
 							}
 						}
+
 						ttmp = (*temp)->next->actor;
 						while (ttmp->next != NULL)
 							ttmp = ttmp->next;
